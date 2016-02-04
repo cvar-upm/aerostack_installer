@@ -96,7 +96,7 @@ echo "Fixing CMakeLists.txt to be able to open QTCreator"
 echo "-------------------------------------------------------"
 cd $DRONE_WORKSPACE/src
 rm CMakeLists.txt
-cp /opt/ros/jade/share/catkin/cmake/toplevel.cmake CMakeLists.txt
+cp /opt/ros/$ROS_DISTRO/share/catkin/cmake/toplevel.cmake CMakeLists.txt
 
 
 echo "-------------------------------------------------------"
