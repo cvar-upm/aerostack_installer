@@ -60,6 +60,7 @@ $AEROSTACK_PATH/installation/installers/installWS.sh
 cd $AEROSTACK_PATH
 ./installation/installers/installStack.sh
 
+source ~/.bashrc
 
 echo "------------------------------------------------------"
 echo "Creating the ROS Workspace"
