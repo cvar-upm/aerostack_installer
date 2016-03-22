@@ -4,7 +4,7 @@
 # The user should fill this variables
 
 # Absolute path of the aerostack workspace
-AEROSTACK_WS_PATH="$HOME/workspace/ros/quadrotor_stack_catkin_ws"
+AEROSTACK_WS_PATH="$HOME/prueba/workspace/ros/quadrotor_stack_catkin_ws"
 
 # Relative path of the aerostack. The parent path is ${AEROSTACK_WS_PATH}/src
 AEROSTACK_STACK_SUBPATH="quadrotor_stack"
@@ -82,7 +82,8 @@ echo "-------------------------------------------------------"
 echo "Fetching the required git submodule"
 echo "-------------------------------------------------------"
 cd ${DRONE_STACK}
-./installation/gitSubmoduleUpdateInit.sh installation/configSubmodules.cfg
+#./installation/gitSubmoduleUpdateInit.sh installation/configSubmodules.cfg
+git submodule update --init
 
 
 echo "-------------------------------------------------------"
