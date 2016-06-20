@@ -82,8 +82,17 @@ echo "-------------------------------------------------------"
 echo "Fetching the required git submodule"
 echo "-------------------------------------------------------"
 cd ${DRONE_STACK}
-#./installation/gitSubmoduleUpdateInit.sh installation/configSubmodules.cfg
-git submodule update --init
+git submodule update --init --recursive configs
+git submodule update --init --recursive documentation
+git submodule update --init --recursive etc
+git submodule update --init --recursive installation
+git submodule update --init --recursive launchers
+git submodule update --init --recursive logs
+
+git submodule update --init --recursive stack
+git submodule update --init --recursive stack_deprecated
+#git submodule update --init --recursive stack_devel
+#git submodule update --init --recursive stack_obsolete
 
 
 echo "-------------------------------------------------------"
