@@ -4,10 +4,10 @@
 # The user should fill this variables
 
 # Absolute path of the aerostack workspace
-AEROSTACK_WS_PATH="$HOME/workspace/ros/quadrotor_stack_catkin_ws"
+AEROSTACK_WS_PATH="$HOME/workspace/ros/aerostack_catkin_ws"
 
 # Relative path of the aerostack. The parent path is ${AEROSTACK_WS_PATH}/src
-AEROSTACK_STACK_SUBPATH="quadrotor_stack"
+AEROSTACK_STACK_SUBPATH="aerostack_stack"
 
 # ROS DISTRO
 ROS_DISTRO="jade"
@@ -26,15 +26,15 @@ AEROSTACK_PATH="$AEROSTACK_WS_PATH/src/$AEROSTACK_STACK_SUBPATH"
 echo "-The Aerostack WS path is: $AEROSTACK_WS_PATH"
 echo "-The Aerostack path is: $AEROSTACK_PATH"
 
-DRONE_WORKSPACE=$AEROSTACK_WS_PATH
-DRONE_STACK=$AEROSTACK_PATH
+AEROSTACK_WORKSPACE=$AEROSTACK_WS_PATH
+AEROSTACK_STACK=$AEROSTACK_PATH
 
 
 echo "------------------------------------------------------"
 echo "Removing previous installs of Aerostack (If Installed)"
 echo "------------------------------------------------------"
-sed -i '/DRONE_WORKSPACE/d' $HOME/.bashrc
-sed -i '/DRONE_STACK/d' $HOME/.bashrc
+sed -i '/AEROSTACK_WORKSPACE/d' $HOME/.bashrc
+sed -i '/AEROSTACK_STACK/d' $HOME/.bashrc
 
 
 echo "------------------------------------------------------"
@@ -66,22 +66,22 @@ echo "------------------------------------------------------"
 echo "Creating the ROS Workspace"
 echo "------------------------------------------------------"
 source /opt/ros/$ROS_DISTRO/setup.bash
-cd $DRONE_WORKSPACE/src
+cd $AEROSTACK_WORKSPACE/src
 catkin_init_workspace
-cd $DRONE_WORKSPACE
+cd $AEROSTACK_WORKSPACE
 catkin_make
 
 
 echo "-------------------------------------------------------"
 echo "Sourcing the ROS Aerostack WS"
 echo "-------------------------------------------------------"
-. ${DRONE_WORKSPACE}/devel/setup.bash
+. ${AEROSTACK_WORKSPACE}/devel/setup.bash
 
 
 echo "-------------------------------------------------------"
 echo "Fetching the required git submodule"
 echo "-------------------------------------------------------"
-cd ${DRONE_STACK}
+cd ${AEROSTACK_STACK}
 git submodule update --init --recursive configs
 git submodule update --init --recursive documentation
 git submodule update --init --recursive etc
@@ -98,14 +98,14 @@ git submodule update --init --recursive stack_deprecated
 echo "-------------------------------------------------------"
 echo "Installing dependencies"
 echo "-------------------------------------------------------"
-cd ${DRONE_STACK}
+cd ${AEROSTACK_STACK}
 ./installation/installation_dep_script.sh
 
 
 echo "-------------------------------------------------------"
 echo "Fixing CMakeLists.txt to be able to open QTCreator"
 echo "-------------------------------------------------------"
-cd $DRONE_WORKSPACE/src
+cd $AEROSTACK_WORKSPACE/src
 rm CMakeLists.txt
 cp /opt/ros/$ROS_DISTRO/share/catkin/cmake/toplevel.cmake CMakeLists.txt
 
@@ -113,8 +113,8 @@ cp /opt/ros/$ROS_DISTRO/share/catkin/cmake/toplevel.cmake CMakeLists.txt
 echo "-------------------------------------------------------"
 echo "Compiling the Aerostack"
 echo "-------------------------------------------------------"
-. ${DRONE_STACK}/setup.sh
-cd ${DRONE_WORKSPACE}
+. ${AEROSTACK_STACK}/setup.sh
+cd ${AEROSTACK_WORKSPACE}
 catkin_make
 
 
