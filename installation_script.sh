@@ -33,6 +33,7 @@ AEROSTACK_STACK=$AEROSTACK_PATH
 echo "------------------------------------------------------"
 echo "Removing previous installs of Aerostack (If Installed)"
 echo "------------------------------------------------------"
+rm -rf $AEROSTACK_WORKSPACE
 sed -i '/AEROSTACK_WORKSPACE/d' $HOME/.bashrc
 sed -i '/AEROSTACK_STACK/d' $HOME/.bashrc
 
@@ -81,7 +82,7 @@ echo "-------------------------------------------------------"
 
 
 echo "-------------------------------------------------------"
-echo "Fetching the required git submodule"
+echo "Fetching the required git submodules"
 echo "-------------------------------------------------------"
 cd ${AEROSTACK_STACK}
 git submodule update --init --recursive configs
