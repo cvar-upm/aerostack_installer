@@ -22,17 +22,19 @@ clear
 echo "------------------------------------------------------"
 echo "Setting Aerostack Paths"
 echo "------------------------------------------------------"
-AEROSTACK_PATH="$AEROSTACK_WS_PATH/src/$AEROSTACK_STACK_SUBPATH"
-echo "-The Aerostack WS path is: $AEROSTACK_WS_PATH"
-echo "-The Aerostack path is: $AEROSTACK_PATH"
-
 AEROSTACK_WORKSPACE=$AEROSTACK_WS_PATH
-AEROSTACK_STACK=$AEROSTACK_PATH
+AEROSTACK_STACK="$AEROSTACK_WS_PATH/src/$AEROSTACK_STACK_SUBPATH"
+echo "-The Aerostack WS path is: $AEROSTACK_WORKSPACE"
+echo "-The Aerostack stack path is: $AEROSTACK_STACK"
+
+
+
 
 
 echo "------------------------------------------------------"
 echo "Removing previous installs of Aerostack (If Installed)"
 echo "------------------------------------------------------"
+rm -rf $AEROSTACK_STACK
 rm -rf $AEROSTACK_WORKSPACE
 sed -i '/AEROSTACK_WORKSPACE/d' $HOME/.bashrc
 sed -i '/AEROSTACK_STACK/d' $HOME/.bashrc
@@ -41,24 +43,24 @@ sed -i '/AEROSTACK_STACK/d' $HOME/.bashrc
 echo "------------------------------------------------------"
 echo "Creating the ROS Workspace for Downloading the Aerostack and the Aerostack path"
 echo "------------------------------------------------------"
-mkdir -p $AEROSTACK_WS_PATH/src
-mkdir -p $AEROSTACK_PATH
+mkdir -p $AEROSTACK_WORKSPACE/src
+mkdir -p $AEROSTACK_STACK
 
 
 echo "-------------------------------------------------------"
 echo "Downloading the Aerostack"
 echo "-------------------------------------------------------"
-cd ${AEROSTACK_PATH}
+cd $AEROSTACK_STACK
 git clone -b master https://github.com/Vision4UAV/Aerostack ./
 
 
 echo "--------------------------------------------------------------------"
 echo "Installing the environment Variables DRONE_WORKSPACE and DRONE_STACK"
 echo "--------------------------------------------------------------------"
-cd $AEROSTACK_WS_PATH
-$AEROSTACK_PATH/installation/installers/installWS.sh
+cd $AEROSTACK_WORKSPACE
+$AEROSTACK_STACK/installation/installers/installWS.sh
 
-cd $AEROSTACK_PATH
+cd $AEROSTACK_STACK
 ./installation/installers/installStack.sh
 
 export AEROSTACK_WORKSPACE
