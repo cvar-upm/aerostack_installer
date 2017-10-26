@@ -55,7 +55,7 @@ echo "-------------------------------------------------------"
 echo "Downloading the Aerostack"
 echo "-------------------------------------------------------"
 cd $AEROSTACK_STACK
-git clone -b master https://bitbucket.org/Vision4UAV/aerostack ./
+git clone -b master https://github.com/Vision4UAV/Aerostack ./
 
 
 echo "--------------------------------------------------------------------"
