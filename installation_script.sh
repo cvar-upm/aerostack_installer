@@ -9,8 +9,12 @@ AEROSTACK_WS_PATH="$HOME/workspace/ros/aerostack_catkin_ws"
 # Relative path of the aerostack. The parent path is ${AEROSTACK_WS_PATH}/src
 AEROSTACK_STACK_SUBPATH="aerostack_stack"
 
+#Asking the user for the ROS Distro
+echo -n "Enter the ROS Distribution: "
+read ROS_DISTRO
+echo "Setting ROS Distro to: "$ROS_DISTRO 
 # ROS DISTRO
-ROS_DISTRO="jade"
+#ROS_DISTRO="jade"
 
 
 #
@@ -51,11 +55,11 @@ echo "-------------------------------------------------------"
 echo "Downloading the Aerostack"
 echo "-------------------------------------------------------"
 cd $AEROSTACK_STACK
-git clone -b master https://github.com/Vision4UAV/Aerostack ./
+git clone -b master https://bitbucket.org/Vision4UAV/aerostack ./
 
 
 echo "--------------------------------------------------------------------"
-echo "Installing the environment Variables DRONE_WORKSPACE and DRONE_STACK"
+echo "Installing the environment Variables AEROSTACK_WORKSPACE and AEROSTACK_STACK"
 echo "--------------------------------------------------------------------"
 cd $AEROSTACK_WORKSPACE
 $AEROSTACK_STACK/installation/installers/installWS.sh
@@ -65,6 +69,7 @@ cd $AEROSTACK_STACK
 
 export AEROSTACK_WORKSPACE
 export AEROSTACK_STACK
+
 
 
 echo "------------------------------------------------------"
@@ -84,7 +89,7 @@ echo "-------------------------------------------------------"
 
 
 echo "-------------------------------------------------------"
-echo "Fetching the required git submodules"
+echo "Fetching the required git submodule"
 echo "-------------------------------------------------------"
 cd ${AEROSTACK_STACK}
 git submodule update --init --recursive configs
