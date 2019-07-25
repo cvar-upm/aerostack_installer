@@ -9,17 +9,13 @@ AEROSTACK_WS_PATH="$HOME/workspace/ros/aerostack_catkin_ws"
 # Relative path of the aerostack. The parent path is ${AEROSTACK_WS_PATH}/src
 AEROSTACK_STACK_SUBPATH="aerostack_stack"
 
-#Asking the user for the ROS Distro
-echo -n "Enter the ROS Distribution: "
-read ROS_DISTRO
-echo "Setting ROS Distro to: "$ROS_DISTRO 
-# ROS DISTRO
-#ROS_DISTRO="jade"
+if [[ `lsb_release -rs` == "18.04" ]]
+then
+	ROS_DISTRO="melodic"
+else
+	ROS_DISTRO="kinetic"
+fi
 
-
-#
-# End of user configuration
-##################################
 
 clear
 
@@ -55,7 +51,7 @@ echo "-------------------------------------------------------"
 echo "Downloading the Aerostack"
 echo "-------------------------------------------------------"
 cd $AEROSTACK_STACK
-git clone -b master https://github.com/Vision4UAV/Aerostack ./
+git clone -b master https://github.com/Vision4UAV/aerostack ./
 
 
 echo "--------------------------------------------------------------------"
@@ -109,7 +105,7 @@ echo "-------------------------------------------------------"
 echo "Installing dependencies"
 echo "-------------------------------------------------------"
 cd ${AEROSTACK_STACK}
-./installation/installation_dep_script.sh
+./installation/install_dependencies.sh
 
 
 echo "-------------------------------------------------------"
@@ -126,6 +122,7 @@ echo "-------------------------------------------------------"
 . ${AEROSTACK_STACK}/setup.sh
 cd ${AEROSTACK_WORKSPACE}
 catkin_make
+
 
 
 
