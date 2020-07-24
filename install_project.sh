@@ -1,6 +1,29 @@
 #!/bin/bash
 
 #######################
+# Check if dpkg database is locked and ros melodic or ros kinetic is installed
+VERSION="$(rosversion -d)"
+if [ -z "$VERSION" ];then
+	VERSION=$ROS_DISTRO
+fi
+if [ ! "$VERSION" = 'melodic' ] && [ ! "$ROS_DISTRO" = 'kinetic' ]; then
+	if [ -z "$VERSION" ];then
+		echo "Ros is not installed"
+		exit 1
+	fi
+	echo "Ros $VERSION is not supported"	
+	exit 1
+fi
+sudo apt-get -y install ros-$ROS_DISTRO-mavlink &>/dev/null
+if [ "$?" -ne 0 ]; then
+	echo $(sudo apt-get --simulate install ros-$ROS_DISTRO-mavlink) &>/dev/null
+	if [ "$?" -ne 0 ]; then
+		echo "Failed to accept software from packages.ros.org"
+	fi
+	echo "$(sudo apt-get -y install ros-$ROS_DISTRO-mavlink)"
+	echo "Unable to install Aerostack ros dependencies, cancelling installation"
+	exit 1
+fi
 
 # Absolute path of the aerostack workspace
 AEROSTACK_WS_PATH="$HOME/workspace/ros/aerostack_catkin_ws"
@@ -51,7 +74,7 @@ echo "-------------------------------------------------------"
 echo "Downloading the Aerostack directory tree"
 echo "-------------------------------------------------------"
 cd $AEROSTACK_STACK
-git clone -b master https://github.com/Vision4UAV/aerostack ./
+git clone -b master https://github.com/Vision4UAV/Aerostack ./
 
 echo "--------------------------------------------------------------------"
 echo "Installing the environment Variables AEROSTACK_WORKSPACE and AEROSTACK_STACK"
@@ -97,10 +120,7 @@ then
 git submodule update --init --recursive projects_cvar
 fi
 
-if [ ! -d "$AEROSTACK_STACK/projects" ] || [ ! "$(ls -A $AEROSTACK_STACK/projects)" ];
-then
-git submodule update --init --recursive projects
-fi
+git submodule update --init --recursive $1
 
 echo "-------------------------------------------------------"
 echo "Installing project"
@@ -129,8 +149,11 @@ echo "Compiling the Aerostack"
 echo "-------------------------------------------------------"
 . ${AEROSTACK_STACK}/setup.sh
 cd ${AEROSTACK_WORKSPACE}
+[ ! -f "$AEROSTACK_STACK/stack/behaviors/behavior_packages/multi_sensor_fusion" ] && touch "$AEROSTACK_STACK/stack/behaviors/behavior_packages/multi_sensor_fusion/CATKIN_IGNORE"
 catkin_make
 
+[ -f "$AEROSTACK_STACK/stack/behaviors/behavior_packages/multi_sensor_fusion/CATKIN_IGNORE" ] && rm "$AEROSTACK_STACK/stack/behaviors/behavior_packages/multi_sensor_fusion/CATKIN_IGNORE"
+catkin_make -j1
 
 
 
