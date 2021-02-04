@@ -40,7 +40,7 @@ if [ ! -d "$AEROSTACK_STACK" ]; then
 	# Absolute path of the aerostack workspace
 	mkdir -p $AEROSTACK_STACK
 	cd $AEROSTACK_STACK
-	git clone -b master https://github.com/Vision4UAV/Aerostack ./
+	git clone -b master https://github.com/cvar-upm/aerostack ./
 fi
 
 PROJECTDIR=$AEROSTACK_STACK/$1

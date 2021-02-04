@@ -74,7 +74,7 @@ echo "-------------------------------------------------------"
 echo "Downloading the Aerostack directory tree"
 echo "-------------------------------------------------------"
 cd $AEROSTACK_STACK
-git clone -b master https://github.com/Vision4UAV/Aerostack ./
+git clone -b master https://github.com/cvar-upm/aerostack ./
 
 echo "--------------------------------------------------------------------"
 echo "Installing the environment Variables AEROSTACK_WORKSPACE and AEROSTACK_STACK"

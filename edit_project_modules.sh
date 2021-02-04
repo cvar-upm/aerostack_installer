@@ -46,7 +46,7 @@ if [ ! -d $AEROSTACK_STACK/.git ]; then
 	mkdir -p $AEROSTACK_WORKSPACE/.temp
 	mkdir -p $AEROSTACK_STACK
 	cd $AEROSTACK_WORKSPACE/.temp
-	git clone -b master https://github.com/Vision4UAV/Aerostack ./
+	git clone -b master https://github.com/cvar-upm/aerostack ./
 	cp -r $AEROSTACK_WORKSPACE/.temp/. $AEROSTACK_STACK/
 	rm -rf $AEROSTACK_WORKSPACE/.temp
 else
